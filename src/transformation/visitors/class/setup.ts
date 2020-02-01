@@ -24,7 +24,12 @@ export function createClassSetup(
     const result: lua.Statement[] = [];
 
     // __TS__Class()
-    const classInitializer = transformLuaLibFunction(context, LuaLibFeature.Class, statement);
+    const classInitializer = transformLuaLibFunction(
+        context,
+        LuaLibFeature.Class,
+        statement,
+        ...(statement.name?.getText() !== undefined ? [lua.createStringLiteral(className.text)] : [])
+    );
 
     const defaultExportLeftHandSide = hasDefaultExportModifier(statement)
         ? lua.createTableIndexExpression(createExportsIdentifier(), createDefaultExportStringLiteral(statement))
