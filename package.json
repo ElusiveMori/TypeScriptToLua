@@ -1,14 +1,16 @@
 {
-    "name": "typescript-to-lua",
+    "name": "ceres-tstl",
     "version": "0.30.1",
-    "description": "A generic TypeScript to Lua transpiler. Write your code in TypeScript and publish Lua!",
+    "description": "Fork of the TSTL project to accomodate Warcraft III live reload.",
     "repository": "https://github.com/TypeScriptToLua/TypeScriptToLua",
     "license": "MIT",
     "keywords": [
         "typescript",
         "lua",
         "tstl",
-        "transpiler"
+        "transpiler",
+        "ceres",
+        "wc3"
     ],
     "files": [
         "dist/**/*.js",
