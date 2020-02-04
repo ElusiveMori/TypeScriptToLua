@@ -35,7 +35,7 @@
         "postversion": "git push && git push --tags"
     },
     "bin": {
-        "tstl": "./dist/tstl.js"
+        "ceres-tstl": "./dist/tstl.js"
     },
     "engines": {
         "node": ">=12.13.0"
