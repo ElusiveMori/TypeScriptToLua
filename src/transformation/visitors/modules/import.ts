@@ -17,22 +17,28 @@ const getAbsoluteImportPath = (relativePath: string, directoryPath: string, opti
         ? path.resolve(options.baseUrl, relativePath)
         : path.resolve(directoryPath, relativePath);
 
-function getImportPath(fileName: string, relativePath: string, node: ts.Node, options: ts.CompilerOptions): string {
+function getImportPath(fileName: string, modulePath: string, node: ts.Node, options: ts.CompilerOptions): string {
     const rootDir = options.rootDir ? path.resolve(options.rootDir) : path.resolve(".");
+    const isAsbolutePath = !modulePath.startsWith(".")
 
-    const absoluteImportPath = path.format(
-        path.parse(getAbsoluteImportPath(relativePath, path.dirname(fileName), options))
-    );
-    const absoluteRootDirPath = path.format(path.parse(rootDir));
-    if (absoluteImportPath.includes(absoluteRootDirPath)) {
-        return formatPathToLuaPath(absoluteImportPath.replace(absoluteRootDirPath, "").slice(1));
+    if (isAsbolutePath) {
+        return formatPathToLuaPath(modulePath)
     } else {
-        throw UnresolvableRequirePath(
-            node,
-            `Cannot create require path. Module does not exist within --rootDir`,
-            relativePath
+        const absoluteImportPath = path.format(
+            path.parse(getAbsoluteImportPath(modulePath, path.dirname(fileName), options))
         );
+        const absoluteRootDirPath = path.format(path.parse(rootDir));
+        if (absoluteImportPath.includes(absoluteRootDirPath)) {
+            return formatPathToLuaPath(absoluteImportPath.replace(absoluteRootDirPath, "").slice(1));
+        } else {
+            throw UnresolvableRequirePath(
+                node,
+                `Cannot create require path. Module does not exist within --rootDir`,
+                modulePath
+            );
+        }
     }
+
 }
 
 function shouldResolveModulePath(context: TransformationContext, moduleSpecifier: ts.Expression): boolean {

@@ -1,6 +1,6 @@
 {
     "name": "ceres-tstl",
-    "version": "0.31.0",
+    "version": "0.31.0-patch1",
     "description": "Fork of the TSTL project to accomodate Warcraft III live reload.",
     "repository": "https://github.com/TypeScriptToLua/TypeScriptToLua",
     "license": "MIT",
